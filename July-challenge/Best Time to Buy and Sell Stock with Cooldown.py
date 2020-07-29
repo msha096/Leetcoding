@@ -3,11 +3,17 @@ class Solution(object):
         """
         :type prices: List[int]
         :rtype: int
-        """
+        """ 
+        # difficulity: medium
+        # dp algorithm, with O(n) running time
+        # space can be saved by using three int buffers to store the value, instead of using n*3 list
+        # state machine: rest can be transisted from sell, or stay at resting since yesterday
+        # hold (have stock) can be transisted from rest + buy stock, or remain holding as yesterday
+        # sell: can only be transisted from holding  
         if len(prices) < 2:
             return 0
         
-        dp = [[0,0,0] for i in range(len(prices))]  # i,0 : hold, i,1: buy, i,2: sell
+        dp = [[0,0,0] for i in range(len(prices))]  # i,0 : rest, i,1: hold, i,2: sell
         dp[0][1] = -prices[0]
         
         for i in range(1,len(prices)):
